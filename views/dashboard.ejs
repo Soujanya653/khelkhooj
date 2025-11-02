@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Scout.it</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f8fbff, #e3f2fd);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem 1rem;
+    }
+
+    .dashboard-container {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      max-width: 650px;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    .dashboard-container:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+      font-weight: 600;
+      color: #0d6efd;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    h4 {
+      margin-top: 1.5rem;
+      font-weight: 600;
+      color: #333;
+      border-bottom: 2px solid #0d6efd;
+      padding-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #444;
+      margin: 0.5rem 0;
+    }
+
+    strong {
+      color: #0d6efd;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: #0d6efd;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    .btn-primary:hover {
+      background-color: #084298;
+    }
+
+    .alert {
+      border-radius: 10px;
+    }
+
+    .media-link {
+      word-break: break-all;
+    }
+
+    @media (max-width: 480px) {
+      .dashboard-container {
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h2>Welcome, <%= user.name %>!</h2>
+
+    <% if (!profile) { %>
+      <div class="alert alert-warning mt-3">
+        No profile found. <a href="/profile/setup">Set up your profile</a> now.
+      </div>
+    <% } else { %>
+      <% if (user.role === "candidate") { %>
+        <h4>Your Candidate Profile</h4>
+        <p><strong>Sport:</strong> <%= profile.sport %></p>
+        <p><strong>Age:</strong> <%= profile.age %></p>
+        <p><strong>Awards:</strong> <%= profile.awards || "N/A" %></p>
+        <p><strong>Media:</strong>
+          <% if (profile.media) { %>
+            <a class="media-link" href="<%= profile.media %>" target="_blank"><%= profile.media %></a>
+          <% } else { %>
+            <span>N/A</span>
+          <% } %>
+        </p>
+        <p><strong>Distance Preference:</strong> <%= profile.distancePreference || "N/A" %></p>
+        <p><strong>Budget:</strong> <%= profile.budget %></p>
+        <a class="btn btn-primary" href="/discover/academies">Discover Academies</a>
+
+      <% } else if (user.role === "academy") { %>
+        <h4>Your Academy Profile</h4>
+        <p><strong>Location:</strong> <%= profile.location %></p>
+        <p><strong>Sports Offered:</strong> <%= profile.sportsOffered %></p>
+        <p><strong>Fees:</strong> <%= profile.fees %></p>
+        <p><strong>Facilities:</strong> <%= profile.facilities %></p>
+        <p><strong>Description:</strong> <%= profile.description %></p>
+        <a class="btn btn-primary" href="/discover/candidates">Discover Candidates</a>
+      <% } %>
+    <% } %>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

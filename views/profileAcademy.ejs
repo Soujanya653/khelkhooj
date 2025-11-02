@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Academy Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f7f9fc;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .profile-card {
+      max-width: 600px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 700;
+      color: #212529;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 16px;
+    }
+
+    .btn-primary {
+      background-color: #0d6efd;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-size: 17px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #0b5ed7;
+    }
+
+    .alert {
+      border-radius: 10px;
+      font-size: 15px;
+      text-align: center;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="profile-card">
+    <h2>Academy Profile Setup</h2>
+
+    <% if (typeof success_msg === 'string' && success_msg.trim() !== '') { %>
+      <div class="alert alert-success"><%= success_msg %></div>
+    <% } else if (Array.isArray(success_msg) && success_msg.length > 0) { %>
+      <div class="alert alert-success"><%= success_msg[0] %></div>
+    <% } else if (typeof error_msg === 'string' && error_msg.trim() !== '') { %>
+      <div class="alert alert-danger"><%= error_msg %></div>
+    <% } else if (Array.isArray(error_msg) && error_msg.length > 0) { %>
+      <div class="alert alert-danger"><%= error_msg[0] %></div>
+    <% } %>
+
+    <form action="/profile/setup" method="POST">
+      <input class="form-control mb-3" type="text" name="location" placeholder="Location">
+      <input class="form-control mb-3" type="text" name="sportsOffered" placeholder="Sports Offered">
+      <input class="form-control mb-3" type="text" name="fees" placeholder="Fees">
+      <input class="form-control mb-3" type="text" name="facilities" placeholder="Facilities">
+      <textarea class="form-control mb-4" name="description" placeholder="Description" rows="4"></textarea>
+      <button class="btn btn-primary" type="submit">Save Profile</button>
+    </form>
+  </div>
+</body>
+</html>

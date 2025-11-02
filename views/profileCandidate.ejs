@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Candidate Profile Setup - Scout.it</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #e3f2fd, #ffffff);
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+    }
+
+    .profile-container {
+      background: #ffffff;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      transition: all 0.3s ease;
+    }
+
+    .profile-container:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+      text-align: center;
+      font-weight: 600;
+      color: #0d6efd;
+      margin-bottom: 1.8rem;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      padding: 12px;
+      border: 1px solid #ced4da;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .form-control:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.2);
+    }
+
+    .btn-primary {
+      background-color: #0d6efd;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      font-weight: 500;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #084298;
+    }
+
+    .alert {
+      border-radius: 10px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 480px) {
+      .profile-container {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="profile-container">
+    <h2>Candidate Profile Setup</h2>
+
+    <!-- ✅ Flash Messages -->
+    <% 
+      const successArray = Array.isArray(success_msg) ? success_msg : (success_msg ? [success_msg] : []);
+      const errorArray = Array.isArray(error_msg) ? error_msg : (error_msg ? [error_msg] : []);
+    %>
+
+    <% successArray.forEach(msg => { %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= msg %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    <% }) %>
+
+    <% errorArray.forEach(msg => { %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= msg %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    <% }) %>
+
+    <!-- ✅ Profile Setup Form -->
+    <form action="/profile/setup" method="POST">
+      <input class="form-control mb-3" type="text" name="sport" placeholder="Sport" required>
+      <input class="form-control mb-3" type="number" name="age" placeholder="Age" required>
+      <input class="form-control mb-3" type="text" name="awards" placeholder="Awards">
+      <input class="form-control mb-3" type="text" name="media" placeholder="Media (URL)">
+      <input class="form-control mb-3" type="text" name="distancePreference" placeholder="Distance Preference">
+      <input class="form-control mb-3" type="text" name="budget" placeholder="Budget">
+      <button class="btn btn-primary" type="submit">Save Profile</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
