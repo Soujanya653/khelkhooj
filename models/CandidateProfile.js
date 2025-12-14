@@ -9,6 +9,16 @@ const CandidateProfileSchema = new mongoose.Schema({
   media: String,
   distancePreference: String,
   budget: String,
+
+
+recommendedAcademies: [
+  {
+    academy: { type: mongoose.Schema.Types.ObjectId, ref: "AcademyProfile" },
+    score: Number,
+    reason: String,
+    createdAt: { type: Date, default: Date.now },
+  },
+],
 });
 
 module.exports = mongoose.model("CandidateProfile", CandidateProfileSchema);

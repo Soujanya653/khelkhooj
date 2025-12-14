@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Saved Candidates</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f8fbff, #e3f2fd);
+      font-family: 'Poppins', sans-serif;
+      padding: 2rem;
+    }
+    .candidate-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+    }
+    .candidate-card:hover {
+      transform: translateY(-4px);
+    }
+    .btn-back {
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/dashboard" class="btn btn-secondary btn-back">← Back to Dashboard</a>
+    <h2 class="text-primary mb-4">Saved Candidates</h2>
+
+    <% if (candidates.length > 0) { %>
+      <% candidates.forEach(c => { %>
+        <div class="candidate-card">
+          <h4><%= c.name %></h4>
+          <p><strong>Sport:</strong> <%= c.sport %></p>
+          <p><strong>Age:</strong> <%= c.age %></p>
+          <p><strong>Awards:</strong> <%= c.awards || "N/A" %></p>
+          <p><strong>Budget:</strong> <%= c.budget || "N/A" %></p>
+          <p><strong>Distance Preference:</strong> <%= c.distancePreference || "N/A" %></p>
+          <% if (c.media) { %>
+            <p><strong>Media:</strong> <a href="<%= c.media %>" target="_blank"><%= c.media %></a></p>
+          <% } %>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>No candidates found.</p>
+    <% } %>
+  </div>
+</body>
+</html>

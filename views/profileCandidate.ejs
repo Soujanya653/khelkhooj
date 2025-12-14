@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,54 +28,11 @@
       transition: all 0.3s ease;
     }
 
-    .profile-container:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-    }
-
     h2 {
       text-align: center;
       font-weight: 600;
       color: #0d6efd;
       margin-bottom: 1.8rem;
-    }
-
-    .form-control {
-      border-radius: 10px;
-      padding: 12px;
-      border: 1px solid #ced4da;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .form-control:focus {
-      border-color: #0d6efd;
-      box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.2);
-    }
-
-    .btn-primary {
-      background-color: #0d6efd;
-      border: none;
-      border-radius: 10px;
-      padding: 12px;
-      font-weight: 500;
-      width: 100%;
-      transition: background-color 0.3s ease;
-    }
-
-    .btn-primary:hover {
-      background-color: #084298;
-    }
-
-    .alert {
-      border-radius: 10px;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 480px) {
-      .profile-container {
-        margin: 1rem;
-        padding: 2rem 1.5rem;
-      }
     }
   </style>
 </head>
@@ -82,11 +41,18 @@
   <div class="profile-container">
     <h2>Candidate Profile Setup</h2>
 
-    <!-- ✅ Flash Messages -->
-    <% 
-      const successArray = Array.isArray(success_msg) ? success_msg : (success_msg ? [success_msg] : []);
-      const errorArray = Array.isArray(error_msg) ? error_msg : (error_msg ? [error_msg] : []);
+    <!-- Flash Messages -->
+    <%
+    var successArray = [];
+    var errorArray = [];
+
+    if (Array.isArray(success_msg)) successArray = success_msg;
+    else if (success_msg) successArray = [success_msg];
+
+    if (Array.isArray(error_msg)) errorArray = error_msg;
+    else if (error_msg) errorArray = [error_msg];
     %>
+
 
     <% successArray.forEach(msg => { %>
       <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -102,7 +68,6 @@
       </div>
     <% }) %>
 
-    <!-- ✅ Profile Setup Form -->
     <form action="/profile/setup" method="POST">
       <input class="form-control mb-3" type="text" name="sport" placeholder="Sport" required>
       <input class="form-control mb-3" type="number" name="age" placeholder="Age" required>

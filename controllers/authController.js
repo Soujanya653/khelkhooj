@@ -1,14 +1,22 @@
-// controllers/authController.js
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const User = require("../models/User");
 
-// Show signup form
+// ✅ Show signup form
 exports.signupForm = (req, res) => {
-  res.render("signup");
+  const role = req.query.role || ""; // <-- picks ?role=athlete or ?role=academy
+
+  res.render("signup", {
+    success_msg: req.flash("success_msg"),
+    error_msg: req.flash("error_msg"),
+    errors: [],
+    name: "",
+    email: "",
+    role // passed to EJS to preselect
+  });
 };
 
-// Handle signup
+// ✅ Handle signup
 exports.signupUser = async (req, res) => {
   const { name, email, password, role } = req.body;
   let errors = [];
@@ -18,7 +26,14 @@ exports.signupUser = async (req, res) => {
   }
 
   if (errors.length > 0) {
-    return res.render("signup", { errors, name, email, role });
+    return res.render("signup", { 
+      errors, 
+      name, 
+      email, 
+      role,
+      success_msg: req.flash("success_msg"),
+      error_msg: req.flash("error_msg")
+    });
   }
 
   try {
@@ -36,16 +51,21 @@ exports.signupUser = async (req, res) => {
     res.redirect("/login");
   } catch (err) {
     console.error(err);
+    req.flash("error_msg", "Something went wrong. Please try again.");
     res.redirect("/signup");
   }
 };
 
-// Show login form
+// ✅ Show login form
 exports.loginForm = (req, res) => {
-  res.render("login");
+  res.render("login", {
+    email: "",
+    success_msg: req.flash("success_msg"),
+    error_msg: req.flash("error_msg")
+  });
 };
 
-// Handle login
+// ✅ Handle login
 exports.loginUser = (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/dashboard",
@@ -54,27 +74,10 @@ exports.loginUser = (req, res, next) => {
   })(req, res, next);
 };
 
-// Logout
+// ✅ Logout
 exports.logoutUser = (req, res) => {
   req.logout(() => {
     req.flash("success_msg", "You are logged out");
     res.redirect("/login");
-  });
-};
-
-// controllers/authController.js
-
-exports.signupForm = (req, res) => {
-  res.render("signup", {
-    errors: [],
-    name: "",
-    email: "",
-    role: "" // define role to avoid ReferenceError
-  });
-};
-
-exports.loginForm = (req, res) => {
-  res.render("login", {
-    email: ""
   });
 };

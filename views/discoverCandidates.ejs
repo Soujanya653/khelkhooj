@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Discover Candidates</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #f0f7ff, #dce9f9);
+      font-family: 'Poppins', sans-serif;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    h2 {
+      font-weight: 700;
+      color: #1565c0;
+      text-align: center;
+      margin-bottom: 2rem;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-back {
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+      background-color: #0d47a1;
+      color: #fff;
+      transform: translateX(-3px);
+    }
+
+    .candidate-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 1.8rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #e3f2fd;
+    }
+
+    .candidate-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+      border-color: #bbdefb;
+    }
+
+    .candidate-card h4 {
+      color: #0d47a1;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+
+    .candidate-card p {
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    strong {
+      color: #1565c0;
+    }
+
+    .no-candidates {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #555;
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a class="btn btn-secondary btn-back" href="/dashboard">← Back to Dashboard</a>
+    <h2>Top 5 Candidates For Your Academy</h2>
+
+    <% if (candidates.length > 0) { %>
+
+      <% candidates.forEach(c => { %>
+        <div class="candidate-card">
+          <h4><%= c.user?.name || "Candidate" %></h4>
+          <p><strong>Sport:</strong> <%= c.sport %></p>
+          <p><strong>Age:</strong> <%= c.age %></p>
+          <p><strong>Awards:</strong> <%= c.awards || "N/A" %></p>
+          <p><strong>Media:</strong> 
+            <% if (c.media) { %>
+              <a href="<%= c.media %>" target="_blank"><%= c.media %></a>
+            <% } else { %> N/A <% } %>
+          </p>
+          <p><strong>Score:</strong> <%= c.score %></p>
+          <p><strong>Reason:</strong> <%= c.reason %></p>
+        </div>
+      <% }) %>
+
+    <% } else { %>
+      <div class="no-candidates">
+        <p>No candidates found.</p>
+      </div>
+    <% } %>
+  </div>
+
+</body>
+</html>
+
+

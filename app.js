@@ -11,7 +11,7 @@ const db = require("./config/db");
 const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
 const dashboardRouter = require("./routes/dashboard");
-const staticRoutes = require("./routes/static"); // add this near other route imports
+const staticRoutes = require("./routes/static");
 
 // Init app
 const app = express();
@@ -19,12 +19,13 @@ const app = express();
 // Connect to MongoDB
 db();
 
+// ✅ Serve static files (images, css, js) BEFORE routes
+app.use(express.static(path.join(__dirname, "public")));
+
 // Middleware
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static('public'));
 
 // Express Session
 app.use(
@@ -61,7 +62,6 @@ app.use("/", staticRoutes);
 
 // Landing page
 app.get("/", (req, res) => res.render("landing"));
-
 
 // Start server
 const PORT = 5000;

@@ -113,7 +113,9 @@
         </p>
         <p><strong>Distance Preference:</strong> <%= profile.distancePreference || "N/A" %></p>
         <p><strong>Budget:</strong> <%= profile.budget %></p>
-        <a class="btn btn-primary" href="/discover/academies">Discover Academies</a>
+        <!--<a class="btn btn-primary" href="/discover/academies">Discover Academies</a>-->
+        <a class="btn btn-primary" href="/dashboard/discover">Discover Academies</a>
+        <a class="btn btn-primary" href="/dashboard/saved-academies">Saved Academies</a>
 
       <% } else if (user.role === "academy") { %>
         <h4>Your Academy Profile</h4>
@@ -122,7 +124,12 @@
         <p><strong>Fees:</strong> <%= profile.fees %></p>
         <p><strong>Facilities:</strong> <%= profile.facilities %></p>
         <p><strong>Description:</strong> <%= profile.description %></p>
-        <a class="btn btn-primary" href="/discover/candidates">Discover Candidates</a>
+        <a class="btn btn-primary" href="/dashboard/discover-candidates">
+          Discover  Candidates
+      </a>
+      <a class="btn btn-primary" href="/dashboard/saved-candidates">
+          Saved  Candidates
+      </a>
       <% } %>
     <% } %>
   </div>
